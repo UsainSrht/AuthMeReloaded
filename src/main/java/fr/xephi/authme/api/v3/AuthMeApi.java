@@ -66,6 +66,10 @@ public class AuthMeApi {
     public static AuthMeApi getInstance() {
         return singleton;
     }
+    
+    public DataSource getDataSource() {
+        return dataSource;
+    }
 
     /**
      * Return the plugin instance.
@@ -145,6 +149,14 @@ public class AuthMeApi {
             auth = dataSource.getAuth(playerName);
         }
         return AuthMePlayerImpl.fromPlayerAuth(auth);
+    }
+    
+    public PlayerAuth getPlayerAuth(String playerName) {
+        PlayerAuth auth = playerCache.getAuth(playerName);
+        if (auth == null) {
+            auth = dataSource.getAuth(playerName);
+        }
+        return auth;
     }
 
     /**
